@@ -281,7 +281,8 @@ test指令，在两个操作数的对应位之间进行and操作，并根据运�
 
 # 3-18
 ## problem
-![](problem/3-18.png)
+![](problem/3-18-a.png)
+![](problem/3-18-b.png)
 ## answer
 ```c
 short test(short x, short y, short z)
@@ -300,14 +301,162 @@ short test(short x, short y, short z)
 }
 ```
 
-# 3-18
+# 3-19
+## problem
+![](problem/3-19.png)
+## answer
+- p, 预测失败的概率
+- Tok，预测成功时的执行时间
+- Tmp，预测失败时的惩罚时间
+- Tran，平均执行时间    
+`Tran = (1-p)*Tok + p(Tok+Tmp)`
+1. 40
+```
+45 = 0.5*Tok + 0.5*Tok + 0.5*Tmp
+```
+
+2. 40+25 = 65
+
+
+# 3-20
+## problem
+![](problem/3-20.png)
+## answer
+```asm
+arith:
+    leaq    15(%rdi),   %rbx    ; t = x + 15
+    testq   %rdi,       %rdi    ; 
+    cmovns  %rdi,       %rbx    ; x >= 0,  t = x
+    sarq    $4,         %rbx    ; t >> 4
+    ret
+```
+
+# 3-21
+## problem
+![](problem/3-21-a.png)
+![](problem/3-21-b.png)
+## answer
+```c
+short test(short x, short y)
+{
+    short val = y + 12;
+    if(x < 0)
+    {
+        if(x < y)
+            val = x * y;
+        else
+            val = x | y;
+    }
+    else if(y > 10)
+        val = x / y;
+    return val;
+}
+```
+
+# 3-22
+## problem
+![](problem/3-22.png)
+## answer
+根据`x/n`是否等于`(n-1)!`来判断结果是否溢出
+
+# 3-23
+## problem
+![](problem/3-23-a.png)
+![](problem/3-23-b.png)
+## answer
+1. x: %rbx, y: %rcx, n: %rdx
+2.  3
+3.  asm
+```asm
+dw_loop:
+    movq    %rdi,       %rbx    ; hold x
+    movq    %rdi,       %rcx
+    idivq   $9,         %rcx    ; y = x / 9
+    leaq    (,%rdi,4),  %rdx    ; n = 4 * x
+
+.L2:
+    leaq    5(%rbx,%rcx),   %rcx    ; *p = x+y+5
+    subq    $1,             %rdx    ; n -= 1
+    testq   %rdx,           %rdx
+    jg      .L2
+    rep     ; ret
+```
+
+
+# 3-24
+## problem
+![](problem/3-24-a.png)
+![](problem/3-24-b.png)
+## answer
+```c
+short loop_while(short a, short b)
+{
+    short result = 0;
+    while(a > b)
+    {
+        result = result + (a * b);
+        a      = a - 1;
+    }
+    return result;
+}
+```
+
+
+# 3-26
+## problem
+![](problem/3-25.png)
+## answer
+```c
+long loop_while2(long a, long b)
+{
+    long result = b;
+    while(b > 0)
+    {
+        result = result * a;
+        b      = b - a;
+    }
+    return result;
+}
+```
+
+# 3-26
+## problem
+![](problem/3-26.png)
+## answer
+```c
+short test_one(unsigned short x)
+{
+    short val = 1;
+    while(x)
+    {
+        val ^= x;
+        x >>= 1;
+    }
+    return val & 0;
+}
+```
+
+# 3-21
 ## problem
 ## answer
 
-# 3-18
+# 3-21
 ## problem
 ## answer
 
-# 3-18
+# 3-21
 ## problem
 ## answer
+
+# 3-21
+## problem
+## answer
+
+# 3-21
+## problem
+## answer
+
+# 3-21
+## problem
+## answer
+
